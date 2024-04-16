@@ -48,15 +48,15 @@ You can install Postman via this website: https://www.postman.com/downloads/
     (You might want to use `cargo check` if you only need to verify your work without running the app.)
 
 ## Mandatory Checklists (Publisher)
--   [ ] Clone https://gitlab.com/ichlaffterlalu/bambangshop to a new repository.
+-   [x] Clone https://gitlab.com/ichlaffterlalu/bambangshop to a new repository.
 -   **STAGE 1: Implement models and repositories**
-    -   [ ] Commit: `Create Subscriber model struct.`
-    -   [ ] Commit: `Create Notification model struct.`
-    -   [ ] Commit: `Create Subscriber database and Subscriber repository struct skeleton.`
-    -   [ ] Commit: `Implement add function in Subscriber repository.`
-    -   [ ] Commit: `Implement list_all function in Subscriber repository.`
-    -   [ ] Commit: `Implement delete function in Subscriber repository.`
-    -   [ ] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
+    -   [x] Commit: `Create Subscriber model struct.`
+    -   [x] Commit: `Create Notification model struct.`
+    -   [x] Commit: `Create Subscriber database and Subscriber repository struct skeleton.`
+    -   [x] Commit: `Implement add function in Subscriber repository.`
+    -   [x] Commit: `Implement list_all function in Subscriber repository.`
+    -   [x] Commit: `Implement delete function in Subscriber repository.`
+    -   [x] Write answers of your learning module's "Reflection Publisher-1" questions in this README.
 -   **STAGE 2: Implement services and controllers**
     -   [ ] Commit: `Create Notification service struct skeleton.`
     -   [ ] Commit: `Implement subscribe function in Notification service.`
@@ -77,6 +77,18 @@ This is the place for you to write reflections:
 ### Mandatory (Publisher) Reflections
 
 #### Reflection Publisher-1
+
+1. ***In the Observer pattern diagram explained by the Head First Design Pattern book, Subscriber is defined as an interface. Explain based on your understanding of Observer design patterns, do we still need an interface (or trait in Rust) in this BambangShop case, or a single Model struct is enough?***
+
+    Dalam implementasi pola Observer, sangat disarankan untuk menggunakan trait dibandingkan dengan single Model struct. Trait di Rust memungkinkan definisi fungsi yang harus diimplementasikan oleh setiap subscriber, memastikan bahwa semua tipe subscriber memenuhi persyaratan tertentu yang diperlukan untuk pola ini. Akan tetapi dalam kasus BambangShop karena subscriber hanya terdiri dari satu tipe saja maka penggunaan single Model struct sudah cukup.
+
+2. ***id in Program and url in Subscriber is intended to be unique. Explain based on your understanding, is using Vec (list) sufficient or using DashMap (map/dictionary) like we currently use is necessary for this case?***
+
+    Penggunaan DashMap dianjurkan daripada Vec karena DashMap memberi kemudahan dalam menjaga keunikan dan efisiensi dalam pencarian. DashMap, yang bekerja seperti dictionary, memungkinkan akses cepat berbasis key yang menghasilkan waktu pencarian rata-rata yang konstan, O(1). Ini lebih efisien dibandingkan dengan Vec, di mana pencarian elemen membutuhkan iterasi melalui semua elemen sehingga memiliki kompleksitas waktu O(n).
+
+3. ***When programming using Rust, we are enforced by rigorous compiler constraints to make a thread-safe program. In the case of the List of Subscribers (SUBSCRIBERS) static variable, we used the DashMap external library for thread safe HashMap. Explain based on your understanding of design patterns, do we still need DashMap or we can implement Singleton pattern instead?***
+
+    Dalam konteks aplikasi yang melibatkan banyak thread, memilih DashMap merupakan opsi yang lebih efektif daripada mengandalkan Singleton pattern. DashMap, yang menyediakan thread-safe hashmap dengan penguncian per entry, memfasilitasi akses data yang lebih cepat dan efisien, ideal untuk situasi konkurensi tinggi. Berbeda dengan Singleton pattern yang sering kali memerlukan penguncian seluruh data, penggunaan DashMap memungkinkan operasi yang lebih granular dengan penguncian yang lebih minim. Hal ini secara signifikan meningkatkan throughput dan performa sistem, menghindari bottleneck yang umum terjadi pada penggunaan pola Singleton dalam lingkungan multi-thread.
 
 #### Reflection Publisher-2
 
