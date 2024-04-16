@@ -105,3 +105,22 @@ This is the place for you to write reflections:
     Iya, Postman merupakan alat yang sangat berguna untuk menguji API dalam pengembangan aplikasi. Dengan Postman, pengguna dapat dengan mudah mengirimkan permintaan HTTP ke endpoint API, memeriksa respons, dan bahkan mengautomasi pengujian menggunakan runner yang mereka sediakan. Fitur seperti environment variables memungkinkan pengguna untuk menyimpan konfigurasi yang dapat digunakan di berbagai permintaan, sementara fitur pre-request scripts dan tests membantu dalam menyiapkan kondisi sebelum permintaan dan memvalidasi respons yang diterima. Fitur-fitur ini sangat membantu dalam group project atau proyek software engineering lainnya.
 
 #### Reflection Publisher-3
+
+1. ***Observer Pattern has two variations: Push model (publisher pushes data to subscribers) and Pull model (subscribers pull data from publisher). In this tutorial case, which variation of Observer Pattern that we use?***
+
+    Dalam kasus tutorial ini, variasi Observer Pattern yang digunakan adalah model Push. Dalam model ini, publisher secara aktif mengirimkan (push) data ke subscriber setiap kali terjadi perubahan atau peristiwa baru, seperti pada implementasi `notify` dalam `NotificationService` yang mengirimkan pemberitahuan ke semua subscriber terkait setiap kali produk dibuat, diperbarui, atau dihapus.
+
+2. ***What are the advantages and disadvantages of using the other variation of Observer Pattern for this tutorial case? (example: if you answer Q1 with Push, then imagine if we used Pull)***
+
+    - **Keuntungan**
+        - Subscriber memiliki kontrol lebih atas informasi yang diterima dengan memilih kapan meminta update, memungkinkan pengaturan informasi sesuai kebutuhan masing-masing.
+        - Publisher menghemat bandwidth dan pemrosesan karena hanya mengirim data saat diminta, efisien untuk situasi di mana perubahan sering terjadi tetapi tidak semua relevan bagi setiap subscriber.
+    - **Kerugian**
+        - Terdapat latensi tambahan dalam penerimaan data karena subscriber harus membuat permintaan untuk mendapatkan update, yang menunda waktu respon.
+        - Beban untuk memeriksa update terletak pada subscriber, yang bisa tidak efisien jika banyak subscriber yang perlu sering memeriksa pembaruan.
+
+3. ***Explain what will happen to the program if we decide to not use multi-threading in the notification process.***
+
+    - Server mungkin mengalami penundaan dalam merespons permintaan lain saat sedang mengirim notifikasi ke subscriber karena perlu menyelesaikan pengiriman notifikasi ke satu subscriber sebelum melanjutkan ke yang berikutnya.
+    - Jika notifikasi membutuhkan waktu lama untuk diproses, terutama jika jumlah subscriber banyak, permintaan pengguna lain mungkin mengalami timeout karena menunggu notifikasi selesai diproses.
+    - Subscriber mungkin menerima notifikasi dengan kecepatan yang berbeda tergantung pada beban server saat itu, yang dapat menyebabkan pengalaman pengguna yang tidak konsisten.
